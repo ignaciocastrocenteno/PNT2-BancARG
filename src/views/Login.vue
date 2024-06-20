@@ -20,6 +20,8 @@
   </div>
 </template>
 <script>
+import { useUserStore } from '@/store/authStore'
+
 export default {
   data() {
     return {
@@ -29,35 +31,24 @@ export default {
       password: ''
     }
   },
-  created() {
-    this.isRegister = this.modo
-  },
   methods: {
     cambiarFormulario() {
       this.isRegister = !this.isRegister
     },
     irAPerfil() {
+      const userStore = useUserStore()
       if (this.isRegister) {
-        //hacer el register
-        const nuevoUser = {
+        const nuevoUsuario = {
           email: this.email,
           username: this.username,
           password: this.password
         }
-
-        localStorage.setItem(nuevoUser.username, JSON.stringify(nuevoUser))
+        userStore.register(nuevoUsuario)
         this.$router.push({ name: 'Perfil' })
       } else {
-        //hacer el login
-        const usuario = JSON.parse(localStorage.getItem(this.username))
-        if (usuario != null) {
-          if (usuario.password != this.password) {
-            alert('contraseña incorrecta')
-          } else {
-            this.$router.push({ name: 'Perfil' })
-          }
-        } else {
-          alert('usuario invalido')
+        const resultado = userStore.login(this.username, this.password)
+        if (resultado) {
+          this.$router.push({ name: 'Perfil' })
         }
       }
     }
