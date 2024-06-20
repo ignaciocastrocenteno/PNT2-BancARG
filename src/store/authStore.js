@@ -19,9 +19,20 @@ export const useUserStore = defineStore('user', {
       }
     },
     register(nuevoUsuario) {
-      localStorage.setItem(nuevoUsuario.username, JSON.stringify(nuevoUsuario))
+      if (nuevoUsuario.username.trim() === '') {
+        alert('nombre de usuario inválido')
+      } else if (nuevoUsuario.password.trim() === '') {
+        alert('contraseña inválida')
+      } else if (nuevoUsuario.email.trim() === '') {
+        alert('correo inválido')
+      } else {
+        localStorage.setItem(nuevoUsuario.username, JSON.stringify(nuevoUsuario))
+        this.usuarioActual = nuevoUsuario
+        return true
+      }
     },
-    logout() {},
-    getActualUser() {}
+    logout() {
+      usuarioActual = null
+    }
   }
 })

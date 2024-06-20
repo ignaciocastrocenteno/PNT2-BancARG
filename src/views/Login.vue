@@ -39,12 +39,13 @@ export default {
       const userStore = useUserStore()
       if (this.isRegister) {
         const nuevoUsuario = {
-          email: this.email,
           username: this.username,
-          password: this.password
+          password: this.password,
+          email: this.email,
         }
-        userStore.register(nuevoUsuario)
-        this.$router.push({ name: 'Perfil' })
+        if(userStore.register(nuevoUsuario)){
+          this.$router.push({ name: 'Perfil' })
+        }
       } else {
         const resultado = userStore.login(this.username, this.password)
         if (resultado) {
