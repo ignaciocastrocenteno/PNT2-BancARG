@@ -2,17 +2,37 @@
   <div>
     <h1>Iniciá sesión o creá una cuenta en BancARG</h1>
     <form>
-      <input type="text" placeholder="Nombre de usuario"/>
-      <br>
+      <input v-if="isRegister" type="email" placeholder="Correo electrónico" />
+      <br />
+      <input type="text" placeholder="Nombre de usuario" />
+      <br />
       <input type="password" placeholder="contraseña" />
-      <br>
-      <button>Login</button>
-      <br>
-    <p>No tenés una cuenta? Registrate</p>
+      <br />
+      <button @click="irAPerfil">{{ isRegister ? 'Registrarse' : 'Iniciar sesión' }}</button>
+      <br />
+      <p v-if="isRegister">Ya tenés una cuenta? <strong @click="cambiarFormulario" style="cursor:pointer">Iniciá sesión</strong></p>
+      <p v-else>No tenés una cuenta? <strong @click="cambiarFormulario" style="cursor:pointer">Registrate</strong></p>
     </form>
   </div>
 </template>
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      isRegister: false
+    }
+  },
+  created(){
+    this.isRegister = this.modo;
+  },
+  methods: {
+    cambiarFormulario() {
+      this.isRegister = !this.isRegister
+    },
+    irAPerfil(){
+      this.$router.push({name:'Perfil'})
+    }
+  }
+}
 </script>
 <style lang=""></style>

@@ -27,10 +27,8 @@
     <input type="text" placeholder="Resultado" v-model="resultado" />
   </div>
   <div>
-    <h3>Para más funciones, ¡inicia sesión o registrate!</h3>
-    <button>Iniciar Sesión</button>
-    <br />
-    <button>Registrarse</button>
+    <h3>Para más funciones, ¡inicia sesión!</h3>
+    <button @click="irALogin">Iniciar Sesión</button>
   </div>
 </template>
 <script>
@@ -63,9 +61,10 @@ export default {
       this.monedasExtranjeras.realOficial = secondData[2].venta
     },
     calcularResultado() {
-      console.log('monedaSeleccionada: ' + this.monedaSeleccionada)
-      console.log('pesos argentinos: ', this.pesosArgentinos)
       this.resultado = this.pesosArgentinos / this.monedaSeleccionada
+    },
+    irALogin(){
+      this.$router.push({name: 'Login'})
     }
   },
   async mounted() {
