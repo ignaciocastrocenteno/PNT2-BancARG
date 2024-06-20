@@ -154,8 +154,9 @@ export default {
       }
     }
   },
-  mounted() {
-    this.getContactos()
+  async mounted() {
+    await this.getContactos()
+    this.$emit('lista-contactos', this.contactos);
   }
 }
 </script>
