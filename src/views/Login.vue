@@ -41,9 +41,9 @@ export default {
         const nuevoUsuario = {
           username: this.username,
           password: this.password,
-          email: this.email,
+          email: this.email
         }
-        if(userStore.register(nuevoUsuario)){
+        if (userStore.register(nuevoUsuario)) {
           this.$router.push({ name: 'Perfil' })
         }
       } else {

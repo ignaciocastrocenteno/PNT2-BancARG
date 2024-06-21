@@ -63,8 +63,8 @@ export default {
     calcularResultado() {
       this.resultado = this.pesosArgentinos / this.monedaSeleccionada
     },
-    irALogin(){
-      this.$router.push({name: 'Login'})
+    irALogin() {
+      this.$router.push({ name: 'Login' })
     }
   },
   async mounted() {

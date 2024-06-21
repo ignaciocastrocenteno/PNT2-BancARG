@@ -16,15 +16,15 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login,
+    component: Login
   },
   {
     path: '/perfil',
     name: 'Perfil',
     component: Perfil,
     meta: {
-      requireAuth: true,
-    },
+      requireAuth: true
+    }
   }
 ]
 
@@ -34,12 +34,12 @@ const router = createRouter({
 })
 
 // router.beforeEach((to, from, next) => {
-  // const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
-  // if (to.meta.requireAuth && !isAuthenticated) {
-  //   next({ name: "Login" });
-  // } else {
-  //   next();
-  // }
+// const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
+// if (to.meta.requireAuth && !isAuthenticated) {
+//   next({ name: "Login" });
+// } else {
+//   next();
+// }
 // });
 
 export default router
