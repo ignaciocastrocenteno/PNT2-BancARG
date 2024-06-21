@@ -32,7 +32,7 @@ export const useUserStore = defineStore('user', {
       }
     },
     logout() {
-      usuarioActual = null
+      this.usuarioActual = null
     }
   }
 })
