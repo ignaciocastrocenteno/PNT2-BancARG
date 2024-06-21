@@ -1,6 +1,6 @@
 <template lang="">
   <div>
-    <h1 class="display-1">Iniciá sesión o creá una cuenta en BancARG</h1>
+    <h1>Iniciá sesión o creá una cuenta en BancARG</h1>
     <form @submit.prevent="handleSubmit">
       <input v-model="email" v-if="isRegister" type="email" placeholder="Correo electrónico" />
       <input v-model="username" type="text" placeholder="Nombre de usuario" />
@@ -42,7 +42,7 @@ export default {
         const nuevoUsuario = {
           username: this.username,
           password: this.password,
-          email: this.email,
+          email: this.email
         }
         if (userStore.register(nuevoUsuario)) {
           this.$router.push({ name: 'Perfil' })

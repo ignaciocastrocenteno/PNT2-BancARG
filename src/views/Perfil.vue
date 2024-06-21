@@ -1,50 +1,52 @@
 <template>
-    <div>
-        <h1>Bienvenido a tu perfil {{ this.usuario.username }}</h1>
-        <button @click="logout">Logout</button>
-        <ManejarSaldo :listaContactos="contactos" />
-        <ListaContactos @lista-contactos="onListaContactos" />
-    </div>
+  <div>
+    <h1>Bienvenido a tu perfil {{ this.usuario.username }}</h1>
+    <ManejarSaldo :listaContactos="contactos" />
+    <ListaContactos @lista-contactos="onListaContactos" />
+    <button @click="logout">Logout</button>
+  </div>
 </template>
 
 <script>
-import { useUserStore } from '@/store/authStore'
-
 import ManejarSaldo from '../components/ManejarSaldo.vue';
 import ListaContactos from '../components/ListaContactos.vue';
+import { useUserStore } from "@/store/authStore";
 
 export default {
-    components: {
-        ManejarSaldo,
-        ListaContactos
-    },
-    data() {
-        return {
-            usuario: {
-                username: '',
-                email: '',
-                password: ''
-            },
-            contactos: []
-        }
-    },
-    methods: {
-        logout() {
-            useUserStore().logout()
-            this.$router.push({ name: 'Home' })
-        },
-        onListaContactos(contactos) {
-            this.contactos = contactos;
-        }
-    },
-    mounted() {
-        const usuarioActual = useUserStore().usuarioActual
-        if (usuarioActual == null) {
-            this.$router.push({ name: 'Login' })
-        } else {
-            this.usuario = usuarioActual
-        }
+  name: "PerfilUsuario",
+  components: {
+    ManejarSaldo,
+    ListaContactos
+  },
+  data() {
+    return {
+      contactos: [],
+      usuario: {
+        username: '',
+        email: '',
+        password: ''
+      }
     }
+  },
+  methods: {
+    onListaContactos(contactos) {
+      this.contactos = contactos;
+    },
+    logout() {
+      useUserStore().logout()
+      this.$router.push({ name: 'Home' })
+    }
+  },
+  mounted() {
+    const usuarioActual = useUserStore().usuarioActual
+    if (usuarioActual == null) {
+      alert("Illegal Access Detected - HTTP 403 Forbidden");
+      this.$router.push({ name: 'Login' })
+    } else {
+      this.usuario = usuarioActual
+    }
+  }
 }
 </script>
-<style lang=""></style>
+
+<style></style>
