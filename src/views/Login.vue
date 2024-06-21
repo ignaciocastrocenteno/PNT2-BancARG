@@ -16,6 +16,10 @@
         No tenés una cuenta?
         <strong @click="cambiarFormulario" style="cursor: pointer">Registrate</strong>
       </p>
+      <p>
+        Olvidaste tu contraseña?
+        <strong @click="cambiarContrasenia" style="cursor: pointer">Cambiar contraseña</strong>
+      </p>
     </form>
   </div>
 </template>
@@ -23,7 +27,7 @@
 import { useUserStore } from '@/store/authStore'
 
 export default {
-  name: "userLogin",
+  name: 'userLogin',
   data() {
     return {
       isRegister: false,
@@ -53,6 +57,17 @@ export default {
           this.$router.push({ name: 'Perfil' })
         }
       }
+    },
+    cambiarContrasenia() {
+      const username = prompt('ingresa tu nombre de usuario: ')
+      const email = prompt('ingrese su email: ')
+      useUserStore().changePassword(username, email)
+    }
+  },
+  mounted() {
+    const usuarioActual = useUserStore().getCurrentUser()
+    if (usuarioActual) {
+      this.$router.push({ name: 'Perfil' })
     }
   }
 }
