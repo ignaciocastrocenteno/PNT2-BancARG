@@ -81,4 +81,87 @@ export default {
   }
 }
 </script>
-<style scoped></style>
+<style scoped>
+.lemaEmpresa {
+  color: grey;
+  font-style: italic;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 40vh;
+}
+
+#loginWrapper {}
+
+main {
+  /*  display: flex;
+  justify-content: center;
+  align-items: center; */
+  background-color: blue;
+  color: white;
+  padding: 3rem;
+  background-color: #0541D6;
+}
+
+#tituloCalculadoraDeMonedas {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#valoresCalculadoraDeMonedas {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+#cotizacionesActualesMonedas {
+  margin-top: 0.3rem;
+  width: 100%;
+}
+
+#cotizacionesActualesMonedas li {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.montoMoneda {
+  display: inline-block;
+  margin-right: 0.35rem;
+  font-weight: bold;
+  font-style: italic;
+  color: gold;
+}
+
+#montoConvertible {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+#montoConvertible h4 {
+  margin-bottom: 1rem;
+}
+
+#montoConvertible input {
+  width: 10%;
+  margin: 0 auto;
+  margin-bottom: 0.5rem;
+}
+</style>

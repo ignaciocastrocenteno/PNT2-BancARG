@@ -23,6 +23,7 @@
 import { useUserStore } from '@/store/authStore'
 
 export default {
+  name: "userLogin",
   data() {
     return {
       isRegister: false,

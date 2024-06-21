@@ -1,15 +1,26 @@
-<template lang="">
+<template>
   <div>
     <h1>Bienvenido a tu perfil {{ this.usuario.username }}</h1>
+    <ManejarSaldo :listaContactos="contactos" />
+    <ListaContactos @lista-contactos="onListaContactos" />
     <button @click="logout">Logout</button>
   </div>
 </template>
+
 <script>
-import { useUserStore } from '@/store/authStore'
+import ManejarSaldo from '../components/ManejarSaldo.vue';
+import ListaContactos from '../components/ListaContactos.vue';
+import { useUserStore } from "@/store/authStore";
 
 export default {
+  name: "PerfilUsuario",
+  components: {
+    ManejarSaldo,
+    ListaContactos
+  },
   data() {
     return {
+      contactos: [],
       usuario: {
         username: '',
         email: '',
@@ -18,6 +29,9 @@ export default {
     }
   },
   methods: {
+    onListaContactos(contactos) {
+      this.contactos = contactos;
+    },
     logout() {
       useUserStore().logout()
       this.$router.push({ name: 'Home' })
@@ -26,6 +40,7 @@ export default {
   mounted() {
     const usuarioActual = useUserStore().usuarioActual
     if (usuarioActual == null) {
+      alert("Illegal Access Detected - HTTP 403 Forbidden");
       this.$router.push({ name: 'Login' })
     } else {
       this.usuario = usuarioActual
@@ -33,4 +48,5 @@ export default {
   }
 }
 </script>
-<style lang=""></style>
+
+<style></style>
