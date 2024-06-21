@@ -14,35 +14,16 @@
     <section id="valoresCalculadoraDeMonedas">
       <h4>Valores de las monedas</h4>
       <div id="cotizacionesActualesMonedas">
-        <li>
-          <span class="montoMoneda">${{ this.monedasExtranjeras.dolarBlue }}</span> pesos el dólar
-          blue
-        </li>
-        <li>
-          <span class="montoMoneda">${{ this.monedasExtranjeras.dolarOficial }}</span> pesos el
-          dólar oficial
-        </li>
-        <li>
-          <span class="montoMoneda">${{ this.monedasExtranjeras.realOficial }}</span> pesos el real
-          oficial
-        </li>
-        <li>
-          <span class="montoMoneda">${{ this.monedasExtranjeras.euroOficial }}</span> pesos el euro
-          oficial
-        </li>
+        <li><span class="montoMoneda">${{ this.monedasExtranjeras.dolarBlue }}</span> pesos el dólar blue</li>
+        <li><span class="montoMoneda">${{ this.monedasExtranjeras.dolarOficial }}</span> pesos el dólar oficial</li>
+        <li><span class="montoMoneda">${{ this.monedasExtranjeras.realOficial }}</span> pesos el real oficial</li>
+        <li><span class="montoMoneda">${{ this.monedasExtranjeras.euroOficial }}</span> pesos el euro oficial</li>
       </div>
     </section>
     <section id="montoConvertible">
       <h4>Ingresa la cantidad de pesos que quiere convertir</h4>
-      <input
-        v-model="pesosArgentinos"
-        type="text"
-        placeholder="Monto en $ARS"
-        autocomplete="off"
-        min-length="1"
-        required
-        size="1"
-      />
+      <input v-model="pesosArgentinos" type="text" placeholder="Monto en $ARS" autocomplete="off"
+      min-length="1" required size="1" />
       <label for="monedas">Elegí la moneda:</label>
       <select id="moneda" name="moneda" v-model="monedaSeleccionada" required>
         <option :value="monedasExtranjeras.dolarOficial">Dolar Oficial</option>
@@ -56,9 +37,11 @@
     <br />
     <input type="text" placeholder="Resultado" v-model="resultado" />
   </main>
+ 
 </template>
 <script>
 export default {
+  name: "homeScreen",
   data() {
     return {
       pesosArgentinos: 0,
@@ -98,4 +81,4 @@ export default {
   }
 }
 </script>
-<style lang=""></style>
+<style scoped></style>
