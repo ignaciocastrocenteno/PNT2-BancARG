@@ -1,33 +1,48 @@
 <template>
-    <div>
-        <h1>Bienvenido a tu perfil</h1>
-        <ManejarSaldo :listaContactos="contactos" />
-        <ListaContactos @lista-contactos="onListaContactos" />
-    </div>
+  <div>
+    <h1>Bienvenido a tu perfil {{ this.usuario.username }}</h1>
+    <ManejarSaldo :listaContactos="contactos" />
+    <ListaContactos @lista-contactos="onListaContactos" />
+    <button @click="logout">Logout</button>
+  </div>
 </template>
 
 <script>
 import ManejarSaldo from '../components/ManejarSaldo.vue';
 import ListaContactos from '../components/ListaContactos.vue';
+import { useUserStore } from "@/store/authStore";
 
 export default {
-    components: {
-        ManejarSaldo,
-        ListaContactos
-    },
-    data() {
-        return {
-            contactos: []
-        }
-    },
-    methods: {
-        onListaContactos(contactos) {
-            this.contactos = contactos;
-        }
-    },
+  name: "PerfilUsuario",
+  components: {
+    ManejarSaldo,
+    ListaContactos
+  },
+  data() {
+    return {
+      contactos: [],
+      usuario: {
+        username: '',
+        email: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    onListaContactos(contactos) {
+      this.contactos = contactos;
+    }
+
+  },
+  mounted() {
+    const usuarioActual = useUserStore().usuarioActual
+    if (usuarioActual == null) {
+      this.$router.push({ name: 'Login' })
+    } else {
+      this.usuario = usuarioActual
+    }
+  }
 }
 </script>
 
-<style>
-/* Estilos para Perfil */
-</style>
+<style></style>
