@@ -40,6 +40,7 @@ export default {
   mounted() {
     const usuarioActual = useUserStore().usuarioActual
     if (usuarioActual == null) {
+      alert("Illegal Access Detected - HTTP 403 Forbidden");
       this.$router.push({ name: 'Login' })
     } else {
       this.usuario = usuarioActual
