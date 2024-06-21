@@ -31,8 +31,11 @@ export default {
   methods: {
     onListaContactos(contactos) {
       this.contactos = contactos;
+    },
+    logout() {
+      useUserStore().logout()
+      this.$router.push({ name: 'Home' })
     }
-
   },
   mounted() {
     const usuarioActual = useUserStore().usuarioActual
