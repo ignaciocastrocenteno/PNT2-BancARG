@@ -33,6 +33,11 @@ export const useUserStore = defineStore('user', {
     },
     logout() {
       this.usuarioActual = null
+    },
+    deleteAccount(){
+      const usuarioABorrar = this.usuarioActual
+      this.usuarioActual = null;
+      localStorage.removeItem(usuarioABorrar.username);
     }
   }
 })

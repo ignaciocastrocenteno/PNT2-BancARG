@@ -4,6 +4,7 @@
     <ManejarSaldo :listaContactos="contactos" />
     <ListaContactos @lista-contactos="onListaContactos" />
     <button @click="logout">Logout</button>
+    <button @click="deleteAccount">Borrar cuenta</button>
   </div>
 </template>
 
@@ -34,6 +35,10 @@ export default {
     },
     logout() {
       useUserStore().logout()
+      this.$router.push({ name: 'Home' })
+    },
+    deleteAccount(){
+      useUserStore().deleteAccount();
       this.$router.push({ name: 'Home' })
     }
   },
