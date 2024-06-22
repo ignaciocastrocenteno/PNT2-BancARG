@@ -3,17 +3,20 @@
     <h1>Bienvenido a tu perfil {{ this.usuario.username }}</h1>
     <ManejarSaldo :listaContactos="contactos" />
     <ListaContactos @lista-contactos="onListaContactos" />
-    <button @click="logout">Logout</button>
+    <button @click="logout">Cerra sesión</button>
+    <button @click="deleteAccount">Borrar cuenta</button>
+    <br />
+    <button @click="editarDatos">Editar datos</button>
   </div>
 </template>
 
 <script>
-import ManejarSaldo from '../components/ManejarSaldo.vue';
-import ListaContactos from '../components/ListaContactos.vue';
-import { useUserStore } from "@/store/authStore";
+import ManejarSaldo from '../components/ManejarSaldo.vue'
+import ListaContactos from '../components/ListaContactos.vue'
+import { useUserStore } from '@/store/authStore'
 
 export default {
-  name: "PerfilUsuario",
+  name: 'PerfilUsuario',
   components: {
     ManejarSaldo,
     ListaContactos
@@ -30,17 +33,27 @@ export default {
   },
   methods: {
     onListaContactos(contactos) {
-      this.contactos = contactos;
+      this.contactos = contactos
     },
     logout() {
       useUserStore().logout()
       this.$router.push({ name: 'Home' })
+    },
+    deleteAccount() {
+      useUserStore().deleteAccount()
+      this.$router.push({ name: 'Home' })
+    },
+    editarDatos() {
+      const nuevoUsername = prompt('ingresa tu nuevo nombre de usuario: ')
+      const nuevoEmail = prompt('ingresa tu nuevo mail: ')
+      useUserStore().editUserData(this.usuario.username, nuevoUsername, nuevoEmail)
+      this.usuario = useUserStore().usuarioActual
     }
   },
   mounted() {
-    const usuarioActual = useUserStore().usuarioActual
+    const usuarioActual = useUserStore().getCurrentUser()
     if (usuarioActual == null) {
-      alert("Illegal Access Detected - HTTP 403 Forbidden");
+      alert('Illegal Access Detected - HTTP 403 Forbidden')
       this.$router.push({ name: 'Login' })
     } else {
       this.usuario = usuarioActual
