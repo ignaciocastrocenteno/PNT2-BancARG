@@ -3,9 +3,9 @@
     <h1>Bienvenido a tu perfil {{ this.usuario.username }}</h1>
     <ManejarSaldo :listaContactos="contactos" />
     <ListaContactos @lista-contactos="onListaContactos" />
+    <ListaServicios  :usuario="this.usuario" />
     <button @click="logout">Cerra sesión</button>
     <button @click="deleteAccount">Borrar cuenta</button>
-    <br />
     <button @click="editarDatos">Editar datos</button>
   </div>
 </template>
@@ -13,13 +13,15 @@
 <script>
 import ManejarSaldo from '../components/ManejarSaldo.vue'
 import ListaContactos from '../components/ListaContactos.vue'
+import ListaServicios from '@/components/ListaServicios.vue';
 import { useUserStore } from '@/store/authStore'
 
 export default {
   name: 'PerfilUsuario',
   components: {
     ManejarSaldo,
-    ListaContactos
+    ListaContactos,
+    ListaServicios
   },
   data() {
     return {
@@ -27,7 +29,8 @@ export default {
       usuario: {
         username: '',
         email: '',
-        password: ''
+        password: '',
+        services: []
       }
     }
   },
@@ -37,7 +40,7 @@ export default {
     },
     logout() {
       useUserStore().logout()
-      this.$router.push({ name: 'Home' })
+      this.$router.push({ name: 'Login' })
     },
     deleteAccount() {
       useUserStore().deleteAccount()
@@ -47,7 +50,7 @@ export default {
       const nuevoUsername = prompt('ingresa tu nuevo nombre de usuario: ')
       const nuevoEmail = prompt('ingresa tu nuevo mail: ')
       useUserStore().editUserData(this.usuario.username, nuevoUsername, nuevoEmail)
-      this.usuario = useUserStore().usuarioActual
+      this.usuario = useUserStore().getCurrentUser()
     }
   },
   mounted() {

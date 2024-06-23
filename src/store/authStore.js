@@ -27,6 +27,7 @@ export const useUserStore = defineStore('user', {
       } else if (nuevoUsuario.email.trim() === '') {
         alert('correo inválido')
       } else {
+        nuevoUsuario.services = []
         localStorage.setItem(nuevoUsuario.username, JSON.stringify(nuevoUsuario))
         this.usuarioActual = nuevoUsuario
         localStorage.setItem('currentUser', JSON.stringify(nuevoUsuario))
@@ -69,11 +70,29 @@ export const useUserStore = defineStore('user', {
       localStorage.setItem('currentUser', JSON.stringify(this.usuarioActual))
     },
     getCurrentUser() {
-      let usuarioARetornar = this.usuarioActual;
-      if(usuarioARetornar == null){
+      let usuarioARetornar = this.usuarioActual
+      if (usuarioARetornar == null) {
         usuarioARetornar = JSON.parse(localStorage.getItem('currentUser'))
       }
       return usuarioARetornar
+    },
+    addService(service) {
+      const currentUser = this.getCurrentUser()
+      currentUser.services.push(service)
+      localStorage.setItem(currentUser.username, JSON.stringify(currentUser))
+      localStorage.setItem('currentUser', JSON.stringify(currentUser))
+    },
+    editService(index, newService) {
+      const currentUser = this.getCurrentUser()
+      currentUser.services[index] = newService
+      localStorage.setItem(currentUser.username, JSON.stringify(currentUser))
+      localStorage.setItem('currentUser', JSON.stringify(currentUser))
+    },
+    removeService(index) {
+      const currentUser = this.getCurrentUser()
+      currentUser.services.splice(index, 1)
+      localStorage.setItem(currentUser.username, JSON.stringify(currentUser))
+      localStorage.setItem('currentUser', JSON.stringify(currentUser))
     }
   }
 })
