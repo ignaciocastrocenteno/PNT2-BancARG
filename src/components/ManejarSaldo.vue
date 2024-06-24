@@ -1,14 +1,14 @@
 <template>
   <main>
-    <div>
+    <section id="saldoDisponible">
       <h1>Saldo disponible: ${{ saldoTotal }}</h1>
-    </div>
-    <div>
+    </section>
+    <section id="cargaDeSaldo">
       <h2>Cargar saldo</h2>
       <input v-model.number="agregarSaldo" type="number" placeholder="Monto a sumar" min="0" />
       <button @click="sumarSaldo">Cargar</button>
-    </div>
-    <div>
+    </section>
+    <section id="transferencias">
       <h2>Transferir saldo</h2>
       <input
         v-model.number="montoTransferencia"
@@ -16,15 +16,23 @@
         placeholder="Monto a transferir"
         min="0"
       />
-      <label for="contacto">Selecciona un contacto:</label>
-      <select id="contacto" v-model="contactoSeleccionado">
-        <option v-for="contacto in listaContactos" :key="contacto.cuenta" :value="contacto.cuenta">
-          {{ contacto.nombre }}
-        </option>
-      </select>
-      <button @click="transferirSaldo">Transferir</button>
+      <div>
+        <label for="contacto">Selecciona un contacto:</label>
+      </div>
+      <div>
+        <select id="contacto" v-model="contactoSeleccionado">
+          <option
+            v-for="contacto in listaContactos"
+            :key="contacto.cuenta"
+            :value="contacto.cuenta"
+          >
+            {{ contacto.nombre }}
+          </option>
+        </select>
+      </div>
+      <button @click="transferirSaldo" id="submitTransferencia">Transferir</button>
       <p>{{ mensaje }}</p>
-    </div>
+    </section>
   </main>
 </template>
 
@@ -100,3 +108,19 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+main {
+  margin-left: 25%;
+}
+#saldoDisponible {
+  margin-bottom: 2.5rem;
+}
+#cargaDeSaldo {
+  margin-bottom: 2rem;
+}
+#submitTransferencia {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+</style>
