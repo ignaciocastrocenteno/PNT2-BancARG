@@ -1,25 +1,25 @@
 <template>
-  <div>
-    <h1>Bienvenido a tu perfil {{ this.usuario.username }}</h1>
+  <Navbar />
+  <main>
+    <h1><em>Bienvenido a tu perfil,</em> {{ this.usuario.username }}</h1>
     <ManejarSaldo :listaContactos="contactos" />
     <ListaContactos @lista-contactos="onListaContactos" />
-    <button @click="logout">Cerra sesión</button>
-    <button @click="deleteAccount">Borrar cuenta</button>
-    <br />
-    <button @click="editarDatos">Editar datos</button>
-  </div>
+  </main>
 </template>
 
 <script>
 import ManejarSaldo from '../components/ManejarSaldo.vue'
 import ListaContactos from '../components/ListaContactos.vue'
+
+import Navbar from '../components/Navbar.vue'
 import { useUserStore } from '@/store/authStore'
 
 export default {
   name: 'PerfilUsuario',
   components: {
     ManejarSaldo,
-    ListaContactos
+    ListaContactos,
+    Navbar
   },
   data() {
     return {
@@ -48,6 +48,15 @@ export default {
       const nuevoEmail = prompt('ingresa tu nuevo mail: ')
       useUserStore().editUserData(this.usuario.username, nuevoUsername, nuevoEmail)
       this.usuario = useUserStore().usuarioActual
+    },
+    redirectPaginaPrincipal() {
+      this.$router.push({ name: 'Perfil' })
+    },
+    redirectTransferencias() {
+      this.$router.push({ name: 'Transferencias' })
+    },
+    redirectListaContactos() {
+      this.$router.push({ name: 'Agenda' })
     }
   },
   mounted() {
@@ -62,4 +71,10 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+/* main {
+  padding: 4rem;
+  margin: 0 15%;
+  margin-bottom: 2%;
+} */
+</style>

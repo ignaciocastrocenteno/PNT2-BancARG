@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Perfil from '../views/Perfil.vue'
+import ListaContactos from '@/components/ListaContactos.vue'
+import ManejarSaldo from '@/components/ManejarSaldo.vue'
 
 const routes = [
   {
@@ -25,6 +27,16 @@ const routes = [
     meta: {
       requireAuth: true
     }
+  },
+  {
+    path: '/agendaDeContactos',
+    name: 'Agenda',
+    component: ListaContactos
+  },
+  {
+    path: '/transferir',
+    name: 'Transferencias',
+    component: ManejarSaldo
   }
 ]
 

@@ -104,7 +104,7 @@ export default {
 main {
   width: 100vw;
   height: 100vh;
-  background-color: #0541d6;
+  background-color: #1c5dfd;
   color: #fff;
   display: flex;
   flex-direction: column;

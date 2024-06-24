@@ -79,7 +79,7 @@
 </template>
 <script>
 export default {
-  name: 'homeScreen',
+  name: 'HomeScreen',
   data() {
     return {
       pesosArgentinos: 0,
@@ -164,7 +164,7 @@ header {
 main {
   color: white;
   padding: 3rem;
-  background-color: #0541d6;
+  background-color: #1c5dfd;
   height: 80vh;
 }
 

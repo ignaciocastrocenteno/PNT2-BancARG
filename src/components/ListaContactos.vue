@@ -24,23 +24,50 @@
 
     <div v-if="agregandoContacto">
       <h3>Agregar Contacto</h3>
-      <input v-model="nuevoContacto.nombre" placeholder="Nombre">
-      <input v-model="nuevoContacto.alias" placeholder="Alias">
-      <input v-model="nuevoContacto.cuenta" placeholder="Cuenta">
+      <input v-model="nuevoContacto.nombre" placeholder="Nombre" />
+      <input v-model="nuevoContacto.alias" placeholder="Alias" />
+      <input v-model="nuevoContacto.cuenta" placeholder="Cuenta" />
       <button @click="agregarContacto">Agregar</button>
       <button @click="cancelarAgregar">Cancelar</button>
     </div>
 
     <div v-if="contactoEditadoOriginal">
       <h3>Editar Contacto</h3>
-      <input v-model="contactoEditadoNuevo.nombre" placeholder="Nombre">
-      <input v-model="contactoEditadoNuevo.alias" placeholder="Alias">
+      <input v-model="contactoEditadoNuevo.nombre" placeholder="Nombre" />
+      <input v-model="contactoEditadoNuevo.alias" placeholder="Alias" />
       <button @click="editarContacto">Guardar</button>
       <button @click="cancelarEditar">Cancelar</button>
     </div>
-
-
   </div>
+  <!-- <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+      </tr>
+    </tbody>
+  </table> -->
 </template>
 
 <script>
@@ -59,7 +86,9 @@ export default {
     // OBTENER CONTACTOS
     async getContactos() {
       try {
-        const response = await fetch('https://667360316ca902ae11b407a5.mockapi.io/api/v1/users/contactos')
+        const response = await fetch(
+          'https://667360316ca902ae11b407a5.mockapi.io/api/v1/users/contactos'
+        )
         const data = await response.json()
         this.contactos = data
       } catch (error) {
@@ -81,13 +110,16 @@ export default {
 
     async agregarContacto() {
       try {
-        const response = await fetch('https://667360316ca902ae11b407a5.mockapi.io/api/v1/users/contactos', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(this.nuevoContacto)
-        })
+        const response = await fetch(
+          'https://667360316ca902ae11b407a5.mockapi.io/api/v1/users/contactos',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.nuevoContacto)
+          }
+        )
         const data = await response.json()
         this.contactos.push(data)
         this.cancelarAgregar()
@@ -99,7 +131,7 @@ export default {
 
     // EDITAR CONTACTOS
     iniciarEditar(cuenta) {
-      const contacto = this.contactos.find(contacto => contacto.cuenta === cuenta)
+      const contacto = this.contactos.find((contacto) => contacto.cuenta === cuenta)
       if (contacto) {
         this.contactoEditadoOriginal = cuenta
         this.contactoEditadoNuevo = { ...contacto }
@@ -112,20 +144,27 @@ export default {
     },
 
     async editarContacto() {
-      const contacto = this.contactos.find(contacto => contacto.cuenta === this.contactoEditadoOriginal)
+      const contacto = this.contactos.find(
+        (contacto) => contacto.cuenta === this.contactoEditadoOriginal
+      )
 
       try {
-        const response = await fetch(`https://667360316ca902ae11b407a5.mockapi.io/api/v1/users/contactos/${contacto.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(this.contactoEditadoNuevo)
-        })
+        const response = await fetch(
+          `https://667360316ca902ae11b407a5.mockapi.io/api/v1/users/contactos/${contacto.id}`,
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.contactoEditadoNuevo)
+          }
+        )
         const data = await response.json()
-        const index = this.contactos.findIndex(contacto => contacto.cuenta === this.contactoEditadoOriginal)
+        const index = this.contactos.findIndex(
+          (contacto) => contacto.cuenta === this.contactoEditadoOriginal
+        )
         if (index !== -1) {
-          this.contactos[index] = data;
+          this.contactos[index] = data
         }
         this.cancelarEditar()
       } catch (error) {
@@ -135,16 +174,19 @@ export default {
 
     // ELIMINAR CONTACTOS
     async eliminarContacto(cuenta) {
-      const contacto = this.contactos.find(contacto => contacto.cuenta === cuenta)
+      const contacto = this.contactos.find((contacto) => contacto.cuenta === cuenta)
       const confirmacion = window.confirm(`¿Estás seguro de eliminar a ${contacto.nombre}?`)
 
       if (confirmacion) {
         try {
-          const response = await fetch(`https://667360316ca902ae11b407a5.mockapi.io/api/v1/users/contactos/${contacto.id}`, {
-            method: 'DELETE'
-          })
+          const response = await fetch(
+            `https://667360316ca902ae11b407a5.mockapi.io/api/v1/users/contactos/${contacto.id}`,
+            {
+              method: 'DELETE'
+            }
+          )
           if (response.ok) {
-            this.contactos = this.contactos.filter(contacto => contacto.cuenta !== cuenta)
+            this.contactos = this.contactos.filter((contacto) => contacto.cuenta !== cuenta)
           } else {
             console.error('Error al eliminar contacto:', response.status)
           }
@@ -156,7 +198,7 @@ export default {
   },
   async mounted() {
     await this.getContactos()
-    this.$emit('lista-contactos', this.contactos);
+    this.$emit('lista-contactos', this.contactos)
   }
 }
 </script>
@@ -176,5 +218,11 @@ td {
 
 th {
   background-color: #f2f2f2;
+}
+
+main {
+  padding: 4rem;
+  margin: 0 15%;
+  margin-bottom: 2%;
 }
 </style>

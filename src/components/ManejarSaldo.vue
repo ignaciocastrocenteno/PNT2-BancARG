@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <main>
     <div>
-      <h1>Saldo disponible: USD {{ saldoTotal }}</h1>
+      <h1>Saldo disponible: ${{ saldoTotal }}</h1>
     </div>
     <div>
       <h2>Cargar saldo</h2>
@@ -25,7 +25,7 @@
       <button @click="transferirSaldo">Transferir</button>
       <p>{{ mensaje }}</p>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
