@@ -1,42 +1,49 @@
 <template lang="">
-  <div>
+  <main>
     <h1>Tus servicios</h1>
     <p v-if="usuario.services.length === 0">No pagaste ningún servicio todavía</p>
-    <table v-else>
-      <tr>
-        <th>Nombre</th>
-        <th>Monto</th>
-        <th>Fecha</th>
-        <th>Acciones</th>
-      </tr>
-      <tr v-for="(service, index) in usuario.services" :key="index">
-        <td>{{ service.nombre }}</td>
-        <td>{{ service.monto }}</td>
-        <td>{{ service.fecha }}</td>
-        <td>
-          <button @click="editarServicio(index)">Editar</button>
-          <button @click="eliminarServicio(index)">Eliminar</button>
-        </td>
-      </tr>
-    </table>
-    <button @click="mostrarFormulario">
+    <div v-else class="servicios-tabla">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Monto (ARS)</th>
+            <th scope="col">Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(service, index) in usuario.services" :key="index">
+            <th scope="row">{{ index + 1 }}</th>
+            <td>{{ service.nombre }}</td>
+            <td>$ {{ service.monto }}</td>
+            <td>{{ service.fecha }}</td>
+            <td class="celda-acciones">
+              <button @click="editarServicio(index)" class="boton-accion">Editar</button>
+              <button @click="eliminarServicio(index)" class="boton-accion">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button @click="mostrarFormulario" class="servicio">
       {{ mostrarFormServicio ? 'Cancelar' : 'Agregar servicio' }}
     </button>
     <input
-      v-model="this.servicio.nombre"
+      v-model="servicio.nombre"
       v-if="mostrarFormServicio"
       type="text"
       placeholder="Nombre del servicio"
     />
     <input
-      v-model="this.servicio.monto"
+      v-model="servicio.monto"
       v-if="mostrarFormServicio"
       type="number"
       placeholder="Monto del servicio"
     />
-    <input v-model="this.servicio.fecha" v-if="mostrarFormServicio" type="date" />
+    <input v-model="servicio.fecha" v-if="mostrarFormServicio" type="date" />
     <button v-if="mostrarFormServicio" @click="agregarServicio">Agregar</button>
-  </div>
+  </main>
 </template>
 <script>
 import { useUserStore } from '@/store/authStore'
@@ -69,8 +76,8 @@ export default {
       ) {
         alert('completa todos los campos')
       } else {
-        useUserStore().addService(this.servicio)
-        this.servicio = { nombre: '', monto: '', fecha: '' }
+        useUserStore().addService(this.servicio) // Usar el método de la tienda para agregar el servicio
+        this.servicio = { nombre: '', monto: '', fecha: '' } // Reiniciar el objeto servicio
       }
     },
     editarServicio(index) {
@@ -87,13 +94,31 @@ export default {
           fecha: nuevaFecha
         }
 
-        useUserStore().editService(index, nuevoServicio)
+        useUserStore().editService(index, nuevoServicio) // Usar el método de la tienda para editar el servicio
       }
     },
     eliminarServicio(index) {
-      useUserStore().removeService(index)
+      useUserStore().removeService(index) // Usar el método de la tienda para eliminar el servicio
     }
   }
 }
 </script>
-<style lang=""></style>
+
+<style scoped>
+main {
+  margin: 0 25%;
+  margin-bottom: 3rem;
+}
+.servicios-tabla {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 2rem;
+}
+.celda-acciones {
+  position: relative;
+  left: 1rem;
+}
+.filaServicio {
+  display: block;
+}
+</style>
