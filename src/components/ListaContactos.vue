@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main>
     <h2>Lista de Contactos</h2>
     <table>
       <thead>
@@ -20,7 +20,7 @@
         </tr>
       </tbody>
     </table>
-    <button @click="iniciarAgregar">Agregar Contacto</button>
+    <button @click="iniciarAgregar" id="agregarContacto">Agregar Contacto</button>
 
     <div v-if="agregandoContacto">
       <h3>Agregar Contacto</h3>
@@ -38,7 +38,7 @@
       <button @click="editarContacto">Guardar</button>
       <button @click="cancelarEditar">Cancelar</button>
     </div>
-  </div>
+  </main>
   <!-- <table class="table">
     <thead>
       <tr>
@@ -221,8 +221,10 @@ th {
 }
 
 main {
-  padding: 4rem;
-  margin: 0 15%;
-  margin-bottom: 2%;
+  margin: 0 25%;
+}
+#agregarContacto {
+  margin-top: 1.5rem;
+  margin-bottom: 2.5rem;
 }
 </style>
