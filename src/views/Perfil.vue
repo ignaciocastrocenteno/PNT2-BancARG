@@ -4,14 +4,15 @@
     <h1><em>Bienvenido a tu perfil,</em> {{ this.usuario.username }}</h1>
     <ManejarSaldo :listaContactos="contactos" />
     <ListaContactos @lista-contactos="onListaContactos" />
+    <ListaServicios :usuario="this.usuario" />
   </main>
 </template>
 
 <script>
 import ManejarSaldo from '../components/ManejarSaldo.vue'
 import ListaContactos from '../components/ListaContactos.vue'
-
 import Navbar from '../components/Navbar.vue'
+import ListaServicios from '@/components/ListaServicios.vue'
 import { useUserStore } from '@/store/authStore'
 
 export default {
@@ -19,7 +20,8 @@ export default {
   components: {
     ManejarSaldo,
     ListaContactos,
-    Navbar
+    Navbar,
+    ListaServicios
   },
   data() {
     return {
@@ -27,7 +29,8 @@ export default {
       usuario: {
         username: '',
         email: '',
-        password: ''
+        password: '',
+        services: []
       }
     }
   },
@@ -37,7 +40,7 @@ export default {
     },
     logout() {
       useUserStore().logout()
-      this.$router.push({ name: 'Home' })
+      this.$router.push({ name: 'Login' })
     },
     deleteAccount() {
       useUserStore().deleteAccount()
@@ -47,7 +50,7 @@ export default {
       const nuevoUsername = prompt('ingresa tu nuevo nombre de usuario: ')
       const nuevoEmail = prompt('ingresa tu nuevo mail: ')
       useUserStore().editUserData(this.usuario.username, nuevoUsername, nuevoEmail)
-      this.usuario = useUserStore().usuarioActual
+      this.usuario = useUserStore().getCurrentUser()
     },
     redirectPaginaPrincipal() {
       this.$router.push({ name: 'Perfil' })
