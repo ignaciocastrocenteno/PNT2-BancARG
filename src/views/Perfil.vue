@@ -75,9 +75,8 @@ export default {
 </script>
 
 <style scoped>
-/* main {
+h1 {
   padding: 4rem;
   margin: 0 15%;
-  margin-bottom: 2%;
-} */
+}
 </style>
