@@ -1,11 +1,15 @@
 <template>
-  <Navbar />
-  <main>
-    <h1><em>Bienvenido a tu perfil,</em> {{ this.usuario.username }}</h1>
-    <ManejarSaldo :listaContactos="contactos" />
-    <ListaContactos @lista-contactos="onListaContactos" />
-    <ListaServicios :usuario="this.usuario" />
-  </main>
+  <div>
+    <Navbar />
+    <div class="perfil-container">
+      <h1><em>Bienvenido a tu perfil,</em> {{ usuario.username }}</h1>
+      <div class=" perfil-content">
+        <ManejarSaldo :listaContactos="contactos" />
+        <ListaContactos @lista-contactos="onListaContactos" />
+        <ListaServicios :usuario="usuario" />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -75,8 +79,33 @@ export default {
 </script>
 
 <style scoped>
+.perfil-container {
+  /* background-color: #3f4aeb; */
+  /* Fondo azul */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.perfil-content {
+  background-color: #3f4aeb;
+  text-align: center;
+  color: white;
+  padding: 2rem;
+  /* background: rgba(255, 255, 255, 0.1); */
+  /* Fondo transparente para los contenidos */
+  border-radius: 8px;
+  width: 80%;
+  max-width: 900px;
+}
+
 h1 {
-  padding: 4rem;
-  margin: 0 15%;
+  margin-bottom: 2rem;
+}
+
+button {
+  margin: 1rem;
 }
 </style>

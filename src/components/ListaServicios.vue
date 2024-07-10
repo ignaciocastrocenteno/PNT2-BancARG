@@ -1,6 +1,6 @@
 <template lang="">
-  <main>
-    <h1>Tus servicios</h1>
+  <div>
+    <h2>Tus servicios</h2>
     <p v-if="usuario.services.length === 0">No pagaste ningún servicio todavía</p>
     <div v-else class="servicios-tabla">
       <table class="table">
@@ -10,6 +10,7 @@
             <th scope="col">Nombre</th>
             <th scope="col">Monto (ARS)</th>
             <th scope="col">Fecha</th>
+            <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -43,7 +44,7 @@
     />
     <input v-model="servicio.fecha" v-if="mostrarFormServicio" type="date" />
     <button v-if="mostrarFormServicio" @click="agregarServicio">Agregar</button>
-  </main>
+  </div>
 </template>
 <script>
 import { useUserStore } from '@/store/authStore'
@@ -105,20 +106,43 @@ export default {
 </script>
 
 <style scoped>
-main {
+/* main {
   margin: 0 25%;
   margin-bottom: 3rem;
 }
+
 .servicios-tabla {
   display: flex;
   justify-content: flex-start;
   margin-bottom: 2rem;
 }
+
 .celda-acciones {
   position: relative;
   left: 1rem;
 }
+
 .filaServicio {
   display: block;
+} */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  padding: 8px;
+}
+
+th {
+  background-color: #1a85d7;
+}
+
+main {
+  margin: 0 25%;
 }
 </style>

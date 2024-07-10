@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <div>
     <h2>Lista de Contactos</h2>
     <table>
       <thead>
@@ -38,7 +38,7 @@
       <button @click="editarContacto">Guardar</button>
       <button @click="cancelarEditar">Cancelar</button>
     </div>
-  </main>
+  </div>
   <!-- <table class="table">
     <thead>
       <tr>
@@ -214,15 +214,18 @@ th,
 td {
   border: 1px solid black;
   padding: 8px;
+  background-color: white;
+  color: black
 }
 
 th {
-  background-color: #f2f2f2;
+  background-color: #1a85d7;
 }
 
 main {
   margin: 0 25%;
 }
+
 #agregarContacto {
   margin-top: 1.5rem;
   margin-bottom: 2.5rem;
