@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <div>
     <section id="saldoDisponible">
       <h1>Saldo disponible: ${{ saldoTotal }}</h1>
     </section>
@@ -10,22 +10,13 @@
     </section>
     <section id="transferencias">
       <h2>Transferir saldo</h2>
-      <input
-        v-model.number="montoTransferencia"
-        type="number"
-        placeholder="Monto a transferir"
-        min="0"
-      />
+      <input v-model.number="montoTransferencia" type="number" placeholder="Monto a transferir" min="0" />
       <div>
         <label for="contacto">Selecciona un contacto:</label>
       </div>
       <div>
         <select id="contacto" v-model="contactoSeleccionado">
-          <option
-            v-for="contacto in listaContactos"
-            :key="contacto.cuenta"
-            :value="contacto.cuenta"
-          >
+          <option v-for="contacto in listaContactos" :key="contacto.cuenta" :value="contacto.cuenta">
             {{ contacto.nombre }}
           </option>
         </select>
@@ -33,7 +24,7 @@
       <button @click="transferirSaldo" id="submitTransferencia">Transferir</button>
       <p>{{ mensaje }}</p>
     </section>
-  </main>
+  </div>
 </template>
 
 <script>
@@ -43,7 +34,7 @@ export default {
   },
   data() {
     return {
-      saldoTotal: 1000,
+      saldoTotal: 0,
       agregarSaldo: 0,
       montoTransferencia: 0,
       contactoSeleccionado: null,
@@ -58,6 +49,7 @@ export default {
       }
       this.saldoTotal += this.agregarSaldo
       this.agregarSaldo = 0
+      this.guardarSaldo()
     },
 
     async transferirSaldo() {
@@ -82,6 +74,7 @@ export default {
       try {
         this.saldoTotal -= this.montoTransferencia
         contacto.saldo += this.montoTransferencia
+        this.guardarSaldo();
 
         const response = await fetch(
           `https://667360316ca902ae11b407a5.mockapi.io/api/v1/users/contactos/${contacto.id}`,
@@ -104,8 +97,24 @@ export default {
         this.mensaje = 'Error al realizar la transferencia'
         console.error(this.mensaje, error)
       }
+    },
+    actualizarSaldo() {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      if (currentUser && currentUser.saldo !== undefined) {
+        this.saldoTotal = currentUser.saldo;
+      }
+    },
+    guardarSaldo() {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+      if (currentUser) {
+        currentUser.saldo = this.saldoTotal
+        localStorage.setItem('currentUser', JSON.stringify(currentUser))
+      }
     }
-  }
+  },
+  mounted() {
+    this.actualizarSaldo();
+  },
 }
 </script>
 
@@ -113,12 +122,15 @@ export default {
 main {
   margin-left: 25%;
 }
+
 #saldoDisponible {
   margin-bottom: 2.5rem;
 }
+
 #cargaDeSaldo {
   margin-bottom: 2rem;
 }
+
 #submitTransferencia {
   margin-top: 1rem;
   margin-bottom: 2rem;

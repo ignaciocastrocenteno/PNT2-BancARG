@@ -27,7 +27,9 @@ export const useUserStore = defineStore('user', {
       } else if (nuevoUsuario.email.trim() === '') {
         alert('correo inválido')
       } else {
+
         nuevoUsuario.services = []
+        nuevoUsuario.saldo = Math.floor(Math.random() * (3000 - 100 + 1)) + 100;
         localStorage.setItem(nuevoUsuario.username, JSON.stringify(nuevoUsuario))
         this.usuarioActual = nuevoUsuario
         localStorage.setItem('currentUser', JSON.stringify(nuevoUsuario))
